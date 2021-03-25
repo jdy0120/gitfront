@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/gitfront/static/js/main.c49ac37b.chunk.js",
-    "main.js.map": "/gitfront/static/js/main.c49ac37b.chunk.js.map",
+    "main.js": "/gitfront/static/js/main.fc16cec6.chunk.js",
+    "main.js.map": "/gitfront/static/js/main.fc16cec6.chunk.js.map",
     "runtime-main.js": "/gitfront/static/js/runtime-main.36936c85.js",
     "runtime-main.js.map": "/gitfront/static/js/runtime-main.36936c85.js.map",
-    "static/js/2.0e80efad.chunk.js": "/gitfront/static/js/2.0e80efad.chunk.js",
-    "static/js/2.0e80efad.chunk.js.map": "/gitfront/static/js/2.0e80efad.chunk.js.map",
+    "static/js/2.8a60f86f.chunk.js": "/gitfront/static/js/2.8a60f86f.chunk.js",
+    "static/js/2.8a60f86f.chunk.js.map": "/gitfront/static/js/2.8a60f86f.chunk.js.map",
     "index.html": "/gitfront/index.html",
-    "static/js/2.0e80efad.chunk.js.LICENSE.txt": "/gitfront/static/js/2.0e80efad.chunk.js.LICENSE.txt"
+    "static/js/2.8a60f86f.chunk.js.LICENSE.txt": "/gitfront/static/js/2.8a60f86f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.36936c85.js",
-    "static/js/2.0e80efad.chunk.js",
-    "static/js/main.c49ac37b.chunk.js"
+    "static/js/2.8a60f86f.chunk.js",
+    "static/js/main.fc16cec6.chunk.js"
   ]
 }
