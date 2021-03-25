@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 
 type time = {
   hour: number,
@@ -27,7 +27,7 @@ const NowTime = () => {
     <div>
       <p>현재 시간은</p>
       <p>{nowTime.hour}시 {nowTime.minute}분 {nowTime.seconds}초 입니다.</p>
-      <p>하지만 도연이의 퇴근 시간은 10시 0분 0초 입니다.</p>
+      <p>하지만 도연이의 퇴근 시간은 22시 0분 0초 입니다.</p>
     </div>
   );
 }
