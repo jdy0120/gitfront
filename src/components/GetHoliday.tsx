@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import axios from 'axios';
 
 interface HolidayList {
   dateKind: string;
@@ -24,17 +25,15 @@ const GetHoliday = () => {
     const inputYear = (document.getElementById('year') as HTMLInputElement ).value;
 
     const requestOption = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({year:inputYear})
-    }
+      body: {
+        year: inputYear
+      }
+    };
 
     const fetchHoliday = async ():Promise<void> => {
-      const response = await fetch(`http://localhost:5050/fetchHoliday`, requestOption);
-      const data = await response.json()
-      if (!data.holidayList.item) {
+      const response = await axios.post('http://192.168.1.6:5050/fetchHoliday',requestOption);
+      const data = await response.data.holidayList.item;
+      if (!data) {
         setHolidayList([{
           dateKind:'올바른 연도를 입력해주세요',
           dateName: '올바른 연도를 입력해주세요',
@@ -43,7 +42,7 @@ const GetHoliday = () => {
           seq: 0,
         }]);
       } else {
-        setHolidayList(data.holidayList.item);
+        setHolidayList(data);
       }
     }
 
