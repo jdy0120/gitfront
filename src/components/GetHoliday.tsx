@@ -25,13 +25,16 @@ const GetHoliday = () => {
     const inputYear = (document.getElementById('year') as HTMLInputElement ).value;
 
     const requestOption = {
+      headers:{
+        'Context-Type': 'application/json'
+      },
       body: {
         year: inputYear
       }
     };
 
     const fetchHoliday = async ():Promise<void> => {
-      const response = await axios.post('http://192.168.1.6:5050/fetchHoliday',requestOption);
+      const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getHoliday/fetchHoliday',requestOption);
       const data = await response.data.holidayList.item;
       if (!data) {
         setHolidayList([{
