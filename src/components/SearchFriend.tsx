@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useState,memo } from 'react';
 import { RouteComponentProps } from 'react-router-dom'
 
 interface MatchParmas {
@@ -52,4 +52,4 @@ const SearchFriend = ({ match }:RouteComponentProps<MatchParmas>) => {
   );
 }
 
-export default SearchFriend;
+export default memo(SearchFriend);

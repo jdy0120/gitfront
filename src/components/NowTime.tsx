@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,memo } from 'react';
 
 type time = {
   hour: number,
@@ -31,4 +31,4 @@ const NowTime = () => {
     </div>
   );
 }
-export default NowTime;
+export default memo(NowTime);

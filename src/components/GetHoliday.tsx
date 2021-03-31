@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,memo } from 'react';
 import axios from 'axios';
 
 interface HolidayList {
@@ -69,4 +69,4 @@ const GetHoliday = () => {
     </div>
   );
 }
-export default GetHoliday;
+export default memo(GetHoliday);

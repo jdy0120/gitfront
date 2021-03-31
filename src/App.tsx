@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter, Link, Switch } from 'react-router-dom'
-import NowTime from './components/NowTime';
+// import NowTime from './components/NowTime';
 import SearchFriend from './components/SearchFriend';
 import GetHoliday from './components/GetHoliday';
 
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <NowTime />
+        {/* <NowTime /> */}
           <ul>
             <li>
               <Link to='/profile/조도연'>조도연</Link>
@@ -37,7 +37,7 @@ function App() {
           </ul>
           <hr/>
         <Switch>
-          <Route path='/' exact={true} component={NowTime}/>
+          {/* <Route path='/' exact={true} component={NowTime}/> */}
           <Route path='/profile/:username' exact component={SearchFriend}/>
           <Route path='/showholiday' exact component={GetHoliday} />
         </Switch>
