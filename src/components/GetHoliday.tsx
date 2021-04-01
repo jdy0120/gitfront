@@ -39,7 +39,7 @@ const GetHoliday = () => {
     };
 
     const fetchHoliday = async ():Promise<void> => {
-      const response = await axios.post('http://localhost:5000/vaulted-bazaar-304910/us-central1/getHoliday',requestOption);
+      const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getHoliday',requestOption);
       const data = await response.data.holidayList.item;
       if (!data) {
         setHolidayList([{
