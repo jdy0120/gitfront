@@ -1,6 +1,5 @@
 import React, { useState,useEffect,memo } from 'react';
 import axios from 'axios';
-import { stringify } from 'node:querystring';
 
 interface HolidayList {
   dateKind: string;
@@ -39,7 +38,7 @@ const GetHoliday = () => {
     };
 
     const fetchHoliday = async ():Promise<void> => {
-      const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getHoliday',requestOption);
+      const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas',requestOption);
       const data = await response.data.holidayList.item;
       if (!data) {
         setHolidayList([{
