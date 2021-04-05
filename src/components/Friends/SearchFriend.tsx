@@ -43,7 +43,7 @@ const SearchFriend = () => {
   return (
     <>
       <div>
-        <input type="text" id='name' defaultValue='조도연'/>
+        <input type="text" id='name' placeholder='이름을 입력해주세요.'/>
         <button type="submit" onClick={arraySearch}>찾기!</button>
         {filteredFriend.idx === 0 ? <h1>이름을 입력해주세요.</h1>
         : <div>

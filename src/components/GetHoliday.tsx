@@ -21,6 +21,10 @@ const GetHoliday = () => {
   const [year, setYear] = useState('2021');
   const [holidayList, setHolidayList] = useState<HolidayList[]>([]);
 
+  const runFetch = async():Promise<void> => {
+    fetchHoliday()
+  }
+
   const fetchHoliday = async ():Promise<void> => {
     const requestOption = {
       headers:{
@@ -39,19 +43,14 @@ const GetHoliday = () => {
     setYear(e.target.value);
   }
 
-  const runFetch = async(evt:React.KeyboardEvent<HTMLInputElement>):Promise<void> => {
-    if (evt.key === "Enter") {
-        fetchHoliday()
-    }
-  }
-
   useEffect(() => {
     fetchHoliday();
   },[])
 
   return (
     <div>
-      <input id='year' type="number" defaultValue='2021' onChange={changeYear} onKeyPress={runFetch}/>
+      <input id='year' type="number" placeholder={'연도를 입력해주세요.'} onChange={changeYear}/>
+      <button onClick={runFetch}>찾기!</button>
       {(typeof holidayList == 'undefined') ? (
       <p>휴일을 찾을 수 없습니다.</p>)
       : <ul>
