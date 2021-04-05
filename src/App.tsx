@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter, Link, Switch } from 'react-router-dom'
 // import NowTime from './components/NowTime';
-import SearchFriend from './components/SearchFriend';
+import SearchFriend from './components/Friends/SearchFriend';
 import GetHoliday from './components/GetHoliday';
 import NowTime from './components/NowTime';
 
