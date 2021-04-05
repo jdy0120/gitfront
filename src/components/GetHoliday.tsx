@@ -9,21 +9,17 @@ interface HolidayList {
   seq: number;
 }
 const formatMoment = (datenumber: number): any => {
+  const weeks = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
   const datestring = datenumber.toString();
-  return datestring.replace(/([0-9]{4})([0-9]{2})([0-9]{2})/,'$1-$2-$3');
+  const newDate = datestring.replace(/([0-9]{4})([0-9]{2})([0-9]{2})/,'$1-$2-$3');
+  const date = new Date(newDate);
+  console.log()
+  return newDate + ', ' + weeks[date.getDay()];
 }
 
 const GetHoliday = () => {
   const [year, setYear] = useState('2021');
-  const [holidayList, setHolidayList] = useState<HolidayList[]>([
-    {
-      dateKind: '',
-      dateName: '',
-      isHoliday: '',
-      locdate: 0,
-      seq: 0,
-    }
-  ]);
+  const [holidayList, setHolidayList] = useState<HolidayList[]>([]);
 
   const fetchHoliday = async ():Promise<void> => {
     const requestOption = {
@@ -37,45 +33,36 @@ const GetHoliday = () => {
 
     const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas',requestOption);
     const data = await response.data.holidayList.item;
-    if (!data) {
-      setHolidayList([{
-        dateKind:'올바른 연도를 입력해주세요',
-        dateName: '올바른 연도를 입력해주세요',
-        isHoliday: '',
-        locdate: 0,
-        seq: 0,
-      }]);
-    } else {
-      setHolidayList(data);
-    }
+    setHolidayList(await data);
+  }
+  const changeYear = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setYear(e.target.value);
   }
 
-  const runFetch = async() => {
-    const inputtedYear = (document.getElementById('year') as HTMLInputElement );
-    if (inputtedYear != null ) {
-      setYear(inputtedYear.value);
-      await fetchHoliday()
+  const runFetch = async(evt:React.KeyboardEvent<HTMLInputElement>):Promise<void> => {
+    if (evt.key === "Enter") {
+        fetchHoliday()
     }
-
   }
-  const itemList = holidayList.map((holiday,index) => 
-    <li key={index}>
-      {holiday.dateName}({formatMoment(holiday.locdate)})
-    </li>
-  );
 
   useEffect(() => {
-    runFetch();
-  },[]);
+    fetchHoliday();
+  },[])
 
   return (
     <div>
-      <input id='year' type="number" defaultValue='2021'/>
-      <button onClick={runFetch}>확인</button>
-      <ul>
-        {itemList}
+      <input id='year' type="number" defaultValue='2021' onChange={changeYear} onKeyPress={runFetch}/>
+      {(typeof holidayList == 'undefined') ? (
+      <p>휴일을 찾을 수 없습니다.</p>)
+      : <ul>
+        {holidayList.map((holiday,index) => 
+          <li key={index}>
+            {holiday.dateName}({formatMoment(holiday.locdate)})
+          </li>
+        )}
       </ul>
+      }
     </div>
   );
 }
-export default memo(GetHoliday);
+export default GetHoliday;
