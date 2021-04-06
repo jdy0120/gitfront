@@ -31,7 +31,7 @@ const ChangeOrAddFriend = ({ friend, canChange, setCanChange }:Props) => {
       }
     };
     
-    const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/insertFriend',requestOption);
+    const response = await axios.put('http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/insertFriend',requestOption);
     return response
   }
 
