@@ -32,7 +32,7 @@ const ChangeOrAddFriend = ({ friend, canChange, setCanChange }:Props) => {
     };
     
     const response = await axios.put('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/insertFriend',requestOption);
-    return response
+    return response;
   }
 
   const changeFalse = async () => {
