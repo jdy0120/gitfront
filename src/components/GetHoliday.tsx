@@ -10,6 +10,7 @@ interface HolidayList {
   locdate: number;
   seq: number;
 }
+
 const formatMoment = (datenumber: number): any => {
   const weeks = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
   const datestring = datenumber.toString();
@@ -63,7 +64,7 @@ const GetHoliday = () => {
         <button onClick={runFetch}>찾기!</button>
         {(typeof holidayList == 'undefined') ? (
         <p>휴일을 찾을 수 없습니다.</p>)
-        : <ul>
+        : <ul style={{listStyle:'none'}}>
           {holidayList.map((holiday,index) => 
             <li key={index}>
               {holiday.dateName}({formatMoment(holiday.locdate)})

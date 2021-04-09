@@ -13,6 +13,7 @@ const linkStyle = {
   color: 'green'
 }
 
+
 function App() {
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -25,29 +26,31 @@ function App() {
     setAnchorEl(null);
   };
   return (
-    <BrowserRouter>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Open Menu
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}><Link style={linkStyle} to='/nowtime'>현재시간을 확인하세요</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link style={linkStyle} to='/profile'>친구들의 정보를 확인하세요</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link style={linkStyle} to='/showholiday'>이번년도 휴일을 알아보세요</Link></MenuItem>
-      </Menu>
-        <hr/>
-      <Switch>
-        {/* <Route path='/' exact={true} component={NowTime}/> */}
-        <Route path='/nowtime' exact component={NowTime}/>
-        <Route path='/profile' exact component={SearchFriend}/>
-        <Route path='/showholiday' exact component={GetHoliday} />
-      </Switch>
-    </BrowserRouter>
+    <div style={{textAlign: 'center'}}>
+      <BrowserRouter>
+        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+          Open Menu
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}><Link style={linkStyle} to='/nowtime'>현재시간을 확인하세요</Link></MenuItem>
+          <MenuItem onClick={handleClose}><Link style={linkStyle} to='/profile'>친구들의 정보를 확인하세요</Link></MenuItem>
+          <MenuItem onClick={handleClose}><Link style={linkStyle} to='/showholiday'>이번년도 휴일을 알아보세요</Link></MenuItem>
+        </Menu>
+          <hr/>
+        <Switch>
+          {/* <Route path='/' exact={true} component={NowTime}/> */}
+          <Route path='/nowtime' exact component={NowTime}/>
+          <Route path='/profile' exact component={SearchFriend}/>
+          <Route path='/showholiday' exact component={GetHoliday} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
