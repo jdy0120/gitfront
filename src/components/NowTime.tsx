@@ -1,4 +1,4 @@
-import { useState,useEffect,memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 type time = {
   hour: number,

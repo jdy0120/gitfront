@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import { Friend } from '../../types/types';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 interface Props {
   friend: Friend

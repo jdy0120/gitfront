@@ -1,6 +1,7 @@
-import React,{ useState,memo,useEffect } from 'react';
-import { Friend } from '../../types/types';
+import React,{ memo, useEffect, useState } from 'react';
+
 import ChangeOrAddFriend from './ChangeOrAddFriend';
+import { Friend } from '../../types/types';
 
 const SearchFriend = () => {
   
