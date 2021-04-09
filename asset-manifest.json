@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/gitfront/static/js/main.2c1aad7f.chunk.js",
-    "main.js.map": "/gitfront/static/js/main.2c1aad7f.chunk.js.map",
+    "main.js": "/gitfront/static/js/main.5031c158.chunk.js",
+    "main.js.map": "/gitfront/static/js/main.5031c158.chunk.js.map",
     "runtime-main.js": "/gitfront/static/js/runtime-main.36936c85.js",
     "runtime-main.js.map": "/gitfront/static/js/runtime-main.36936c85.js.map",
     "static/js/2.a53b5a5a.chunk.js": "/gitfront/static/js/2.a53b5a5a.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.36936c85.js",
     "static/js/2.a53b5a5a.chunk.js",
-    "static/js/main.2c1aad7f.chunk.js"
+    "static/js/main.5031c158.chunk.js"
   ]
 }
