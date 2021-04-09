@@ -4,7 +4,6 @@ import ChangeOrAddFriend from './ChangeOrAddFriend';
 import { Friend } from '../../types/types';
 
 const SearchFriend = () => {
-  
   const [friendList,setFriendList] = useState<Friend[]>([]);
   const [canChange,setCanChange] = useState(false);
   const [filteredFriend,setFilteredFriend] = useState<Friend>({
@@ -20,6 +19,7 @@ const SearchFriend = () => {
     const myFriendList = await response.json()
     
     setFriendList(myFriendList);
+    
   }
 
   const arraySearch = async () => {

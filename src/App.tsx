@@ -1,7 +1,6 @@
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
 
 import { Button } from '@material-ui/core'
-import Chatting from './components/Chatting/Chatting';
 import GetHoliday from './components/GetHoliday';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -40,7 +39,6 @@ function App() {
         <MenuItem onClick={handleClose}><Link style={linkStyle} to='/nowtime'>현재시간을 확인하세요</Link></MenuItem>
         <MenuItem onClick={handleClose}><Link style={linkStyle} to='/profile'>친구들의 정보를 확인하세요</Link></MenuItem>
         <MenuItem onClick={handleClose}><Link style={linkStyle} to='/showholiday'>이번년도 휴일을 알아보세요</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link style={linkStyle} to='/Chatting'/>채팅을 쳐보세요</MenuItem>
       </Menu>
         <hr/>
       <Switch>
@@ -48,7 +46,6 @@ function App() {
         <Route path='/nowtime' exact component={NowTime}/>
         <Route path='/profile' exact component={SearchFriend}/>
         <Route path='/showholiday' exact component={GetHoliday} />
-        <Route path='/Chatting' exact component={Chatting}/>
       </Switch>
     </BrowserRouter>
   );
