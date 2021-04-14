@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import NowTime from './components/NowTime';
 import React from 'react';
 import SearchFriend from './components/Friends/SearchFriend';
+import GetWeather from './components/GetWeather';
 
 const linkStyle = {
   textDecoration: 'none',
@@ -41,6 +42,7 @@ function App() {
           <MenuItem onClick={handleClose}><Link style={linkStyle} to='/nowtime'>현재시간을 확인하세요</Link></MenuItem>
           <MenuItem onClick={handleClose}><Link style={linkStyle} to='/profile'>친구들의 정보를 확인하세요</Link></MenuItem>
           <MenuItem onClick={handleClose}><Link style={linkStyle} to='/showholiday'>이번년도 휴일을 알아보세요</Link></MenuItem>
+          <MenuItem onClick={handleClose}><Link style={linkStyle} to='/showWeather'>현재 날씨를 보고 싶어요</Link></MenuItem>
         </Menu>
           <hr/>
         <Switch>
@@ -48,6 +50,7 @@ function App() {
           <Route path='/nowtime' exact component={NowTime}/>
           <Route path='/profile' exact component={SearchFriend}/>
           <Route path='/showholiday' exact component={GetHoliday} />
+          <Route path='/showWeather' exact component={GetWeather} />
         </Switch>
       </BrowserRouter>
     </div>
