@@ -77,4 +77,4 @@ const GetHoliday = () => {
     </>
   );
 }
-export default GetHoliday;
+export default memo(GetHoliday);

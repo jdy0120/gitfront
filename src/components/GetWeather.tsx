@@ -18,7 +18,7 @@ const GetWeather = () => {
   const [weatherData, setWeatherData] = useState<WeatherInfo>();
   const getWeatherInfo = async ():Promise<void> => {
     try {
-      const response = await axios.post('http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Weather',requestOption(location));
+      const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Weather',requestOption(location));
       setWeatherData(response.data);
     } catch (err) {
       setWeatherData(undefined);
