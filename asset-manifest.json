@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/gitfront/static/js/main.ab38005a.chunk.js",
-    "main.js.map": "/gitfront/static/js/main.ab38005a.chunk.js.map",
+    "main.js": "/gitfront/static/js/main.f794e2fd.chunk.js",
+    "main.js.map": "/gitfront/static/js/main.f794e2fd.chunk.js.map",
     "runtime-main.js": "/gitfront/static/js/runtime-main.36936c85.js",
     "runtime-main.js.map": "/gitfront/static/js/runtime-main.36936c85.js.map",
     "static/css/2.f0fce20c.chunk.css": "/gitfront/static/css/2.f0fce20c.chunk.css",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.36936c85.js",
     "static/css/2.f0fce20c.chunk.css",
     "static/js/2.c66584c1.chunk.js",
-    "static/js/main.ab38005a.chunk.js"
+    "static/js/main.f794e2fd.chunk.js"
   ]
 }
