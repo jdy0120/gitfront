@@ -22,7 +22,18 @@ const GetWeather = () => {
       setWeatherData(response.data);
     } catch (err) {
       setWeatherData(undefined);
-      console.log(err.status);
+      const response = err.response;
+      switch (response.data) {
+        case 'Not exist area':
+          alert('존재하지 않는 지역입니다.');
+          break;
+        case 'Request path contains unescaped characters':
+          alert('영어로 적어주세요.');
+          break;
+        default:
+          alert(response.data);
+          break;
+      }
     }
   }
 
