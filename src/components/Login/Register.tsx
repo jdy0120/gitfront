@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
 
 interface Props {
   setOpenLoginModal: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 
 function getModalStyle() {
   const top = 50;
@@ -70,6 +78,9 @@ const Register = ({ setOpenLoginModal }:Props) => {
 
   return (
     <div style={modalStyle} className={classes.paper}>
+      <Title>
+        {'도연'}
+      </Title>
       <form action="/" onSubmit={getRegister}>
         name : <input type="text" placeholder='이름' onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setName(e.target.value)}} required/><br/>
         email : <input type="email" placeholder='이메일' onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setEmail(e.target.value)}} required/><br/>

@@ -19,7 +19,7 @@ const formatMoment = (datenumber: number): any => {
   console.log()
   return newDate + ', ' + weeks[date.getDay()];
 }
-
+console.log(3);
 const GetHoliday = () => {
   const [loading,setLoading] = useState(false);
   const [year, setYear] = useState('2021');
@@ -46,14 +46,20 @@ const GetHoliday = () => {
     setLoading(false);
   }
 
+  
   const changeYear = (e:React.ChangeEvent<HTMLInputElement>) => {
     setYear(e.target.value);
   }
 
   useEffect(() => {
     fetchHoliday();
-  },[])
+    console.log(1);
+    return () => {
+      console.log(3);
+    }
+  }, [])
 
+  console.log(2);
   return (
     <>
       {loading ?
@@ -77,4 +83,4 @@ const GetHoliday = () => {
     </>
   );
 }
-export default memo(GetHoliday);
+export default GetHoliday;

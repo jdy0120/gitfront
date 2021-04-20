@@ -50,6 +50,8 @@ function App() {
 
   useEffect(() => {
   },[openLoginModal]);
+  
+  console.log('2021 04 19 2')
 
   return (
     <div style={{textAlign: 'center'}}>
@@ -82,7 +84,7 @@ function App() {
           <MenuItem onClick={menuClose}><Link style={linkStyle} to='/profile'>친구들의 정보를 확인하세요</Link></MenuItem>
           <MenuItem onClick={menuClose}><Link style={linkStyle} to='/showholiday'>이번년도 휴일을 알아보세요</Link></MenuItem>
           <MenuItem onClick={menuClose}><Link style={linkStyle} to='/showWeather'>현재 날씨를 보고 싶어요</Link></MenuItem>
-          <MenuItem onClick={menuClose}><Link style={linkStyle} to='calendar'>캘린더</Link></MenuItem>
+          <MenuItem onClick={menuClose}><Link style={linkStyle} to='/calendar'>캘린더</Link></MenuItem>
         </Menu>
           <hr/>
         <Switch>

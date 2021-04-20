@@ -58,7 +58,7 @@ const Login = ({ setOpenLoginModal }:Props) => {
       setCookie('loginToken',response.data.loginToken,{ path: '/', maxAge:response.data.maxAge});
       setCookie('name',response.data.name,{ path: '/', maxAge:response.data.maxAge});
       console.log('logged in');
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       const response = err.response;
       switch (response.data) {

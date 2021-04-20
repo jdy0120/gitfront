@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
+import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { RouteComponentProps } from 'react-router';
 
 const Calendar = ({ history }:RouteComponentProps) => {
-
+  const [check,setCheck] = useState(false);
   const [cookie] = useCookies();
 
   const requestOption = {
@@ -15,10 +16,11 @@ const Calendar = ({ history }:RouteComponentProps) => {
       'loginToken': cookie.loginToken
     }
   };
-
+  console.log('Entrance Calendar Page');
   const goCalendar = async () => {
     try {
       const response = await axios.post('https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar',requestOption);
+      setCheck(true);
       console.log(response);
     } catch (err) {
       const response = err.response;
@@ -40,12 +42,18 @@ const Calendar = ({ history }:RouteComponentProps) => {
 
   useEffect(() => {
     goCalendar();
-  });
+  },[]);
 
   return (
     <FullCalendar
-        plugins={[ dayGridPlugin ]}
-        initialView="dayGridMonth"
+      plugins={[ dayGridPlugin, interactionPlugin ]}
+      initialView="dayGridMonth"
+      dateClick={(args) => alert(args.dateStr)}
+      events={[
+        { title: 'event 1', date:'2021-04-01'},
+        { title: 'event 2', date: '2021-04-02'}
+      ]}
+      eventColor={'#378006'}
     />
   );
 }
