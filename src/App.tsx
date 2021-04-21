@@ -1,16 +1,16 @@
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom'
-import { Button, Modal } from '@material-ui/core'
-import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { Button, Modal } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 
-import Calendar from './components/Calendar/Calendar';
-import GetHoliday from './components/GetHoliday';
-import GetWeather from './components/GetWeather';
-import Login from './components/Login/Login';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import NowTime from './components/NowTime';
-import SearchFriend from './components/Friends/SearchFriend';
-import { useCookies } from 'react-cookie';
+import Calendar from "./components/Calendar/Calendar";
+import GetHoliday from "./components/GetHoliday";
+import GetWeather from "./components/GetWeather";
+import Login from "./components/Login/Login";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import NowTime from "./components/NowTime";
+import SearchFriend from "./components/Friends/SearchFriend";
+import { useCookies } from "react-cookie";
 
 /**
  * material ui의 modal을 사용할 경우 ref오류가 생기는데 Bar를 생성해주면 해결
@@ -18,17 +18,17 @@ import { useCookies } from 'react-cookie';
  */
 const Bar = React.forwardRef((props: any, ref: any) => (
   <span {...props} ref={ref}>
-      {props.children}
+    {props.children}
   </span>
 ));
 
 const linkStyle = {
-  textDecoration: 'none',
-  color: 'green'
-}
+  textDecoration: "none",
+  color: "green",
+};
 
 function App() {
-  const [cookie,setCookie,removeCookie] = useCookies(['loginToken']);
+  const [cookie, setCookie, removeCookie] = useCookies(["loginToken"]);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
 
@@ -40,6 +40,11 @@ function App() {
     setOpenLoginModal(false);
   };
 
+  const logout = () => {
+    removeCookie("name");
+    removeCookie("loginToken");
+  };
+
   const menuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenMenu(event.currentTarget);
   };
@@ -47,20 +52,31 @@ function App() {
   const menuClose = () => {
     setOpenMenu(null);
   };
+  useEffect(() => {}, [openLoginModal]);
 
-  useEffect(() => {
-  },[openLoginModal]);
-  
-  console.log('2021 04 19 2')
+  console.log("2021 04 19 2");
 
   return (
-    <div style={{textAlign: 'center'}}>
-      {!cookie.name ?
-        <Button color='primary' onClick={loginOpen}>로그인</Button>
-      :
-        <p>{cookie.name}님 환영합니다.</p>}
+    <div style={{ textAlign: "center" }}>
+      {!cookie.name ? (
+        <Button color="primary" onClick={loginOpen}>
+          로그인
+        </Button>
+      ) : (
+        <>
+          <p>{cookie.name}님 환영합니다.</p>
+          <br />
+          <Button onClick={logout} variant="contained" color="secondary">
+            {"로그아웃"}
+          </Button>
+        </>
+      )}
       <BrowserRouter>
-        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={menuOpen}>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={menuOpen}
+        >
           Open Menu
         </Button>
         <Modal
@@ -80,21 +96,41 @@ function App() {
           open={Boolean(openMenu)}
           onClose={menuClose}
         >
-          <MenuItem onClick={menuClose}><Link style={linkStyle} to='/nowtime'>현재시간을 확인하세요</Link></MenuItem>
-          <MenuItem onClick={menuClose}><Link style={linkStyle} to='/profile'>친구들의 정보를 확인하세요</Link></MenuItem>
-          <MenuItem onClick={menuClose}><Link style={linkStyle} to='/showholiday'>이번년도 휴일을 알아보세요</Link></MenuItem>
-          <MenuItem onClick={menuClose}><Link style={linkStyle} to='/showWeather'>현재 날씨를 보고 싶어요</Link></MenuItem>
-          <MenuItem onClick={menuClose}><Link style={linkStyle} to='/calendar'>캘린더</Link></MenuItem>
+          <MenuItem onClick={menuClose}>
+            <Link style={linkStyle} to="/nowtime">
+              {"현재시간을 확인하세요"}
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={menuClose}>
+            <Link style={linkStyle} to="/profile">
+              {"친구들의 정보를 확인하세요"}
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={menuClose}>
+            <Link style={linkStyle} to="/showholiday">
+              {"이번년도 휴일을 알아보세요"}
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={menuClose}>
+            <Link style={linkStyle} to="/showWeather">
+              {"현재 날씨를 보고 싶어요"}
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={menuClose}>
+            <Link style={linkStyle} to="/calendar">
+              {"캘린더"}
+            </Link>
+          </MenuItem>
         </Menu>
-          <hr/>
+        <hr />
         <Switch>
           {/* <Route path='/' exact={true} component={NowTime}/> */}
-          <Route path='/nowtime' exact component={NowTime}/>
-          <Route path='/profile' exact component={SearchFriend}/>
-          <Route path='/showholiday' exact component={GetHoliday} />
-          <Route path='/showWeather' exact component={GetWeather} />
-          <Route path='/calendar' exact component={Calendar} />
-          <Route path='/login' exact component={Login} />
+          <Route path="/nowtime" exact component={NowTime} />
+          <Route path="/profile" exact component={SearchFriend} />
+          <Route path="/showholiday" exact component={GetHoliday} />
+          <Route path="/showWeather" exact component={GetWeather} />
+          <Route path="/calendar" exact component={Calendar} />
+          <Route path="/login" exact component={Login} />
         </Switch>
       </BrowserRouter>
     </div>
