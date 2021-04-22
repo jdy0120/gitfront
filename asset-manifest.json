@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/gitfront/static/js/main.39a0de78.chunk.js",
-    "main.js.map": "/gitfront/static/js/main.39a0de78.chunk.js.map",
+    "main.js": "/gitfront/static/js/main.796a1cca.chunk.js",
+    "main.js.map": "/gitfront/static/js/main.796a1cca.chunk.js.map",
     "runtime-main.js": "/gitfront/static/js/runtime-main.528b3376.js",
     "runtime-main.js.map": "/gitfront/static/js/runtime-main.528b3376.js.map",
     "static/css/2.b2a1d0af.chunk.css": "/gitfront/static/css/2.b2a1d0af.chunk.css",
-    "static/js/2.5989696b.chunk.js": "/gitfront/static/js/2.5989696b.chunk.js",
-    "static/js/2.5989696b.chunk.js.map": "/gitfront/static/js/2.5989696b.chunk.js.map",
+    "static/js/2.e51efefa.chunk.js": "/gitfront/static/js/2.e51efefa.chunk.js",
+    "static/js/2.e51efefa.chunk.js.map": "/gitfront/static/js/2.e51efefa.chunk.js.map",
     "index.html": "/gitfront/index.html",
     "static/css/2.b2a1d0af.chunk.css.map": "/gitfront/static/css/2.b2a1d0af.chunk.css.map",
-    "static/js/2.5989696b.chunk.js.LICENSE.txt": "/gitfront/static/js/2.5989696b.chunk.js.LICENSE.txt"
+    "static/js/2.e51efefa.chunk.js.LICENSE.txt": "/gitfront/static/js/2.e51efefa.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.528b3376.js",
     "static/css/2.b2a1d0af.chunk.css",
-    "static/js/2.5989696b.chunk.js",
-    "static/js/main.39a0de78.chunk.js"
+    "static/js/2.e51efefa.chunk.js",
+    "static/js/main.796a1cca.chunk.js"
   ]
 }
