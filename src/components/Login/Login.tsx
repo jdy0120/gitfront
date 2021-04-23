@@ -68,7 +68,7 @@ const Login = ({ setOpenLoginModal }: Props) => {
         maxAge: response.data.maxAge,
       });
       console.log("logged in");
-      // window.location.reload();
+      window.location.reload();
     } catch (err) {
       const response = err.response;
       switch (response.data) {

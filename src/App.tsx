@@ -28,7 +28,7 @@ const linkStyle = {
 };
 
 function App() {
-  const [cookie, setCookie, removeCookie] = useCookies(["loginToken"]);
+  const [cookie, setCookie, removeCookie] = useCookies();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
 
@@ -59,13 +59,12 @@ function App() {
   return (
     <div style={{ textAlign: "center" }}>
       {!cookie.name ? (
-        <Button color="primary" onClick={loginOpen}>
-          로그인
+        <Button variant="contained" color="primary" onClick={loginOpen}>
+          {"로그인"}
         </Button>
       ) : (
         <>
           <p>{cookie.name}님 환영합니다.</p>
-          <br />
           <Button onClick={logout} variant="contained" color="secondary">
             {"로그아웃"}
           </Button>

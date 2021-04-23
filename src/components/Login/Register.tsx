@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
+import { useCookies } from "react-cookie";
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -42,6 +43,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const [cookie, setCookie] = useCookies();
   const [modalStyle] = useState(getModalStyle);
   const classes = useStyles();
 
@@ -62,12 +64,20 @@ const Register = ({ setOpenLoginModal }: Props) => {
         "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/register",
         requestOption
       );
-      await axios.post(
+      const response = await axios.post(
         "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/login",
         requestOption,
         { withCredentials: true }
       );
       setOpenLoginModal(false);
+      setCookie("loginToken", response.data.loginToken, {
+        path: "/",
+        maxAge: response.data.maxAge,
+      });
+      setCookie("name", response.data.name, {
+        path: "/",
+        maxAge: response.data.maxAge,
+      });
       window.location.reload();
     } catch (err) {
       const response = err.response;
@@ -84,7 +94,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
 
   return (
     <div style={modalStyle} className={classes.paper}>
-      <Title>{"도연"}</Title>
+      <Title>{"회원가입"}</Title>
       <form action="/" onSubmit={getRegister}>
         name :{" "}
         <input
