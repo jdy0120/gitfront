@@ -41,8 +41,8 @@ function App() {
   };
 
   const logout = () => {
-    removeCookie("name");
-    removeCookie("loginToken");
+    removeCookie("name", { path: "/" });
+    removeCookie("loginToken", { path: "/" });
   };
 
   const menuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {

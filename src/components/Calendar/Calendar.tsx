@@ -5,33 +5,49 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { RouteComponentProps } from "react-router";
+import { Day, EventInfo } from "../../types/types";
+import moment from "moment-timezone";
 
-interface Events {
-  title: string;
-  date: string;
-  color: string;
-}
+moment().tz("Asia/Seoul").format();
 
 const Calendar = ({ history }: RouteComponentProps) => {
   const [check, setCheck] = useState(false);
   const [cookie] = useCookies();
-  const [events, setEvents] = useState<Events[]>();
+  const [events, setEvents] = useState<EventInfo[]>();
+  const [dayInfo, setDayInfo] = useState<Day>({
+    year: 2021,
+    month: 4,
+  });
+  console.log(moment("2021-4").format("YYYY-MM"));
 
   const requestOption = {
     headers: {
       "Context-Type": "application/json",
       loginToken: cookie.loginToken,
     },
+    body: {
+      year: dayInfo.year,
+      month: dayInfo.month,
+    },
   };
   console.log("Entrance Calendar Page");
-  const goCalendar = async () => {
+  console.log(moment().format());
+  console.log(dayInfo.year, dayInfo.month);
+  const getEvents = async () => {
     try {
       const response = await axios.post(
-        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
+        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
         requestOption
       );
       setCheck(true);
-      console.log(response);
+      setEvents(
+        response.data.map((element: any) => {
+          return {
+            ...element,
+            date: moment(element.date).format("YYYY-MM-DD"),
+          };
+        })
+      );
     } catch (err) {
       const response = err.response;
       switch (response.data) {
@@ -57,10 +73,11 @@ const Calendar = ({ history }: RouteComponentProps) => {
     }
   };
 
+  console.log(events);
+
   useEffect(() => {
-    goCalendar();
-    pushEvent();
-  }, [events]);
+    getEvents();
+  }, []);
 
   return (
     <FullCalendar
