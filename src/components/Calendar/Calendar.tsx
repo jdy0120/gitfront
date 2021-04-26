@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FullCalendar from "@fullcalendar/react";
+import FullCalendar, { EventClickArg } from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import axios from "axios";
@@ -14,6 +14,8 @@ const Calendar = ({ history }: RouteComponentProps) => {
   const [check, setCheck] = useState(false);
   const [cookie] = useCookies();
   const [events, setEvents] = useState<EventInfo[]>();
+  const [eventModal, setEventModal] = useState<Boolean>(false);
+  const [clickedEvent, setClickedEvent] = useState<EventInfo>();
   const [dayInfo, setDayInfo] = useState<Day>({
     year: 2021,
     month: 4,
@@ -66,11 +68,15 @@ const Calendar = ({ history }: RouteComponentProps) => {
     }
   };
 
-  const pushEvent = async () => {
-    try {
-    } catch (err) {
-      console.log(err.message);
-    }
+  const showEventDetail = (element: EventClickArg) => {
+    setEventModal(true);
+    console.log(element.event);
+    // setClickedEvent({
+    //   title: string;
+    //   content: element.event._def.extendedProps.contents,
+    //   email: string;
+    //   date: string;
+    // });
   };
 
   console.log(events);
@@ -85,6 +91,7 @@ const Calendar = ({ history }: RouteComponentProps) => {
       initialView="dayGridMonth"
       dateClick={(args) => alert(args.dateStr)}
       events={events}
+      eventClick={showEventDetail}
     />
   );
 };
