@@ -34,8 +34,16 @@ export interface Day {
 }
 
 export interface EventInfo {
+  idx: number;
+  name: string;
   title: string;
   content: string;
   email: string;
-  date: string;
+  color: string;
+  date: string | undefined;
+}
+
+export interface JwtInfo {
+  email: string;
+  lai: string;
 }

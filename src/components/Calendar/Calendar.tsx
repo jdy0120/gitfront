@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from "react";
+import { EventInfo } from "../../types/types";
 import FullCalendar, { EventClickArg } from "@fullcalendar/react";
-import interactionPlugin from "@fullcalendar/interaction";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import axios from "axios";
-import { useCookies } from "react-cookie";
+import React, { useEffect, useState } from "react";
+
+import Dialog from "@material-ui/core/Dialog";
 import { RouteComponentProps } from "react-router";
-import { Day, EventInfo } from "../../types/types";
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
+import axios from "axios";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import moment from "moment-timezone";
+import { useCookies } from "react-cookie";
+import { EventCRUD } from "./EventCRUD";
 
 moment().tz("Asia/Seoul").format();
 
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement<any, any> },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const Calendar = ({ history }: RouteComponentProps) => {
-  const [check, setCheck] = useState(false);
   const [cookie] = useCookies();
   const [events, setEvents] = useState<EventInfo[]>();
-  const [eventModal, setEventModal] = useState<Boolean>(false);
-  const [clickedEvent, setClickedEvent] = useState<EventInfo>();
-  const [dayInfo, setDayInfo] = useState<Day>({
-    year: 2021,
-    month: 4,
-  });
-  console.log(moment("2021-4").format("YYYY-MM"));
+  const [eventModal, setEventModal] = useState<boolean>(false);
+  const [clickedEvent, setClickedEvent] = useState<EventInfo | undefined>();
+  const [clickedDate, setClickedDate] = useState<string>();
 
   const requestOption = {
     headers: {
@@ -28,20 +35,16 @@ const Calendar = ({ history }: RouteComponentProps) => {
       loginToken: cookie.loginToken,
     },
     body: {
-      year: dayInfo.year,
-      month: dayInfo.month,
+      division: "getEvents",
     },
   };
-  console.log("Entrance Calendar Page");
-  console.log(moment().format());
-  console.log(dayInfo.year, dayInfo.month);
+
   const getEvents = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
+        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
         requestOption
       );
-      setCheck(true);
       setEvents(
         response.data.map((element: any) => {
           return {
@@ -50,6 +53,7 @@ const Calendar = ({ history }: RouteComponentProps) => {
           };
         })
       );
+      console.log(response.data);
     } catch (err) {
       const response = err.response;
       switch (response.data) {
@@ -70,29 +74,58 @@ const Calendar = ({ history }: RouteComponentProps) => {
 
   const showEventDetail = (element: EventClickArg) => {
     setEventModal(true);
-    console.log(element.event);
-    // setClickedEvent({
-    //   title: string;
-    //   content: element.event._def.extendedProps.contents,
-    //   email: string;
-    //   date: string;
-    // });
+    const def = element.event._def;
+    const instance = element.event._instance;
+    setClickedDate(element.event._instance?.range.start.toString());
+    setClickedEvent({
+      idx: def.extendedProps.idx,
+      name: def.extendedProps.name,
+      color: def.extendedProps.color,
+      title: def.title,
+      content: def.extendedProps.content,
+      email: def.extendedProps.email,
+      date: moment(instance?.range.start).format("YYYY-MM-DD"),
+    });
   };
 
-  console.log(events);
+  const insertEventForm = (element: DateClickArg) => {
+    setClickedEvent(undefined);
+    setClickedDate(element.dateStr);
+    setEventModal(true);
+  };
+
+  const closeEventDetail = () => {
+    setEventModal(false);
+  };
 
   useEffect(() => {
     getEvents();
   }, []);
 
   return (
-    <FullCalendar
-      plugins={[dayGridPlugin, interactionPlugin]}
-      initialView="dayGridMonth"
-      dateClick={(args) => alert(args.dateStr)}
-      events={events}
-      eventClick={showEventDetail}
-    />
+    <>
+      <FullCalendar
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        dateClick={insertEventForm}
+        events={events}
+        eventClick={showEventDetail}
+      />
+      <Dialog
+        open={eventModal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={closeEventDetail}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <EventCRUD
+          clickedEvent={clickedEvent}
+          clickedDate={clickedDate}
+          setEventModal={setEventModal}
+        />
+      </Dialog>
+    </>
   );
 };
 
