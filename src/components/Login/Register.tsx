@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
+import jwt from "jsonwebtoken";
+import { jwtObj } from "../../_config/jwt-config";
+import { useAppContext } from "../../_providers/AppProviders";
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -43,9 +46,11 @@ const Register = ({ setOpenLoginModal }: Props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
-  const [cookie, setCookie] = useCookies();
+  // const [cookie, setCookie] = useCookies();
   const [modalStyle] = useState(getModalStyle);
   const classes = useStyles();
+
+  const { setUser } = useAppContext();
 
   const requestOption = {
     headers: {
@@ -70,15 +75,12 @@ const Register = ({ setOpenLoginModal }: Props) => {
         { withCredentials: true }
       );
       setOpenLoginModal(false);
-      setCookie("loginToken", response.data.loginToken, {
-        path: "/",
-        maxAge: response.data.maxAge,
+      setUser({
+        loginToken: response.data.loginToken,
+        ...JSON.parse(
+          JSON.stringify(jwt.verify(response.data.loginToken, jwtObj.secret))
+        ),
       });
-      setCookie("name", response.data.name, {
-        path: "/",
-        maxAge: response.data.maxAge,
-      });
-      window.location.reload();
     } catch (err) {
       const response = err.response;
       switch (response.data) {
@@ -86,7 +88,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
           alert("중복된 이메일 입니다.");
           break;
         default:
-          alert(response);
+          alert(response.data);
           break;
       }
     }

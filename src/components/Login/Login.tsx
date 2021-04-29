@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Register from "./Register";
-import { useCookies } from "react-cookie";
+import { useAppContext } from "../../_providers/AppProviders";
+import { jwtObj } from "../../_config/jwt-config";
+import jwt from "jsonwebtoken";
+// import { useCookies } from "react-cookie";
 interface Props {
   setOpenLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -37,7 +40,10 @@ const Login = ({ setOpenLoginModal }: Props) => {
   const [pw, setPw] = useState("");
   const [modalStyle] = useState(getModalStyle);
   const [register, setRegister] = useState(false);
-  const [cookie, setCookie] = useCookies();
+  // const [cookie, setCookie] = useCookies();
+  const {
+    setUser,
+  } = useAppContext();
 
   const classes = useStyles();
 
@@ -59,16 +65,13 @@ const Login = ({ setOpenLoginModal }: Props) => {
         { withCredentials: true }
       );
       setOpenLoginModal(false);
-      setCookie("loginToken", response.data.loginToken, {
-        path: "/",
-        maxAge: response.data.maxAge,
-      });
-      setCookie("name", response.data.name, {
-        path: "/",
-        maxAge: response.data.maxAge,
+      setUser({
+        loginToken: response.data.loginToken,
+        ...JSON.parse(
+          JSON.stringify(jwt.verify(response.data.loginToken, jwtObj.secret))
+        ),
       });
       console.log("logged in");
-      window.location.reload();
     } catch (err) {
       const response = err.response;
       switch (response.data) {

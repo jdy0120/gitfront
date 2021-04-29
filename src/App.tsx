@@ -10,7 +10,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import NowTime from "./components/NowTime";
 import SearchFriend from "./components/Friends/SearchFriend";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
+import { useAppContext } from "./_providers/AppProviders";
+// import jwt from "jsonwebtoken";
+// import { jwtObj } from "./_config/jwt-config";
 
 /**
  * material ui의 modal을 사용할 경우 ref오류가 생기는데 Bar를 생성해주면 해결
@@ -28,9 +31,14 @@ const linkStyle = {
 };
 
 function App() {
-  const [cookie, setCookie, removeCookie] = useCookies();
+  // const [cookie, setCookie, removeCookie] = useCookies();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
+
+  const {
+    state: { user },
+    resetUser,
+  } = useAppContext();
 
   const loginOpen = () => {
     setOpenLoginModal(true);
@@ -41,8 +49,9 @@ function App() {
   };
 
   const logout = () => {
-    removeCookie("name", { path: "/" });
-    removeCookie("loginToken", { path: "/" });
+    // removeCookie("name", { path: "/" });
+    // removeCookie("loginToken", { path: "/" });
+    resetUser();
   };
 
   const menuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,18 +63,16 @@ function App() {
   };
   useEffect(() => {}, [openLoginModal]);
 
-  console.log("2021 04 19 2");
-
   return (
     <div style={{ textAlign: "center" }}>
-      {!cookie.name ? (
+      {!user ? (
         <Button variant="contained" color="primary" onClick={loginOpen}>
           {"로그인"}
         </Button>
       ) : (
         <>
-          <p>{cookie.name}님 환영합니다.</p>
-          <Button onClick={logout} variant="contained" color="secondary">
+          <p>{user.name}{'님 환영합니다.'}</p>
+          <Button onClick={logout} variant="contained" style={{ backgroundColor: user.color}}>
             {"로그아웃"}
           </Button>
         </>
@@ -76,7 +83,7 @@ function App() {
           aria-haspopup="true"
           onClick={menuOpen}
         >
-          Open Menu
+          {'Open Menu'}
         </Button>
         <Modal
           open={openLoginModal}
@@ -96,40 +103,39 @@ function App() {
           onClose={menuClose}
         >
           <MenuItem onClick={menuClose}>
-            <Link style={linkStyle} to="/nowtime">
+            <Link style={linkStyle} to="/gitfront/nowtime">
               {"현재시간을 확인하세요"}
             </Link>
           </MenuItem>
           <MenuItem onClick={menuClose}>
-            <Link style={linkStyle} to="/profile">
+            <Link style={linkStyle} to="/gitfront/profile">
               {"친구들의 정보를 확인하세요"}
             </Link>
           </MenuItem>
           <MenuItem onClick={menuClose}>
-            <Link style={linkStyle} to="/showholiday">
+            <Link style={linkStyle} to="/gitfront/showholiday">
               {"이번년도 휴일을 알아보세요"}
             </Link>
           </MenuItem>
           <MenuItem onClick={menuClose}>
-            <Link style={linkStyle} to="/showWeather">
+            <Link style={linkStyle} to="/gitfront/showWeather">
               {"현재 날씨를 보고 싶어요"}
             </Link>
           </MenuItem>
           <MenuItem onClick={menuClose}>
-            <Link style={linkStyle} to="/calendar">
+            <Link style={linkStyle} to="/gitfront/calendar">
               {"캘린더"}
             </Link>
           </MenuItem>
         </Menu>
         <hr />
         <Switch>
-          {/* <Route path='/' exact={true} component={NowTime}/> */}
-          <Route path="/nowtime" exact component={NowTime} />
-          <Route path="/profile" exact component={SearchFriend} />
-          <Route path="/showholiday" exact component={GetHoliday} />
-          <Route path="/showWeather" exact component={GetWeather} />
-          <Route path="/calendar" exact component={Calendar} />
-          <Route path="/login" exact component={Login} />
+          <Route path="/gitfront/nowtime" exact component={NowTime} />
+          <Route path="/gitfront/profile" exact component={SearchFriend} />
+          <Route path="/gitfront/showholiday" exact component={GetHoliday} />
+          <Route path="/gitfront/showWeather" exact component={GetWeather} />
+          <Route path="/gitfront/calendar" exact component={Calendar} />
+          <Route path="/gitfront/login" exact component={Login} />
         </Switch>
       </BrowserRouter>
     </div>

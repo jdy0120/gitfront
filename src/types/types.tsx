@@ -40,10 +40,13 @@ export interface EventInfo {
   content: string;
   email: string;
   color: string;
-  date: string | undefined;
+  date: string;
+  time: string;
 }
 
-export interface JwtInfo {
+export interface UserInfo {
+  loginToken: string;
   email: string;
-  lai: string;
+  name: string;
+  color: string;
 }

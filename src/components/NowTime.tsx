@@ -21,9 +21,12 @@ const NowTime = () => {
       seconds: date.getSeconds(),
     });
   };
+  
 
   useEffect(() => {
-    setInterval(setTime, 1000);
+    const interval = setInterval(setTime, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

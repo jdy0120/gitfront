@@ -4,21 +4,19 @@ import Button from "@material-ui/core/Button";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { EventInfo, JwtInfo } from "../../types/types";
+import { EventInfo } from "../../types/types";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import { TextField } from "@material-ui/core";
 import axios from "axios";
-import jwt from "jsonwebtoken";
-import moment from "moment-timezone";
-import { useCookies } from "react-cookie";
-import { jwtObj } from "../../_config/jwt-config";
-
-moment().tz("Asia/Seoul").format();
+// import { useCookies } from "react-cookie";
+import { useAppContext } from "../../_providers/AppProviders";
 
 interface Props {
   clickedEvent: EventInfo | undefined;
   clickedDate: string | undefined;
   setEventModal: Dispatch<SetStateAction<boolean>>;
+  CURDFlag: boolean;
+  setCURDFlag: Dispatch<SetStateAction<boolean>>;
 }
 
 const formatMoment = (datestring: string): any => {
@@ -36,33 +34,38 @@ const formatMoment = (datestring: string): any => {
     "$1-$2-$3"
   );
   const date = new Date(newDate);
-  return newDate + ", " + weeks[date.getDay()];
+  return newDate + " [" + weeks[date.getDay()] + "]";
 };
 
 export const EventCRUD = ({
   clickedEvent,
   clickedDate,
   setEventModal,
+  CURDFlag,
+  setCURDFlag,
 }: Props) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [cookie] = useCookies();
+  // const [cookie] = useCookies();
+
+  const {
+    state: { user },
+  } = useAppContext();
 
   const insertEvent = async () => {
     const requestOption = {
       headers: {
         "Context-Type": "application/json",
-        loginToken: cookie.loginToken,
+        loginToken: user?.loginToken,
       },
       body: {
         division: "insertEvent",
         title: title,
         content: content,
-        name: cookie["name"],
+        email: user?.email,
         date: clickedDate,
       },
     };
-    console.log(requestOption);
     try {
       const response = await axios.post(
         "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
@@ -73,28 +76,21 @@ export const EventCRUD = ({
       console.log(err);
     }
     setEventModal(false);
-    window.location.reload();
+    CURDFlag ? setCURDFlag(false) : setCURDFlag(true);
   };
 
   const deleteEvent = async () => {
-    const jwtInfo: string | object = jwt.verify(
-      cookie["loginToken"],
-      jwtObj.secret
-    );
-    const { ...tokenInfo } = JSON.parse(JSON.stringify(jwtInfo));
-
-    if (tokenInfo.email === clickedEvent?.email) {
+    if (user?.email === clickedEvent?.email) {
       const requestOption = {
         headers: {
           "Context-Type": "application/json",
-          loginToken: cookie.loginToken,
+          loginToken: user?.loginToken,
         },
         body: {
           division: "deleteEvent",
           idx: clickedEvent?.idx,
         },
       };
-      console.log(requestOption);
       try {
         const response = await axios.post(
           "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
@@ -105,7 +101,7 @@ export const EventCRUD = ({
         console.log(err);
       }
       setEventModal(false);
-      window.location.reload();
+      CURDFlag ? setCURDFlag(false) : setCURDFlag(true);
     } else {
       setEventModal(false);
       alert("남의 것을 삭제할 수 없습니다.");
@@ -122,6 +118,9 @@ export const EventCRUD = ({
           </DialogTitle>
           <DialogContentText id="alert-dialog-slide-description">
             {clickedEvent.date ? formatMoment(clickedEvent?.date) : "null"}
+          </DialogContentText>
+          <DialogContentText id="alert-dialog-slide-description">
+            {clickedEvent.time}
           </DialogContentText>
           <hr />
           <DialogContentText id="alert-dialog-slide-description">
@@ -160,7 +159,7 @@ export const EventCRUD = ({
             }}
           />
           <DialogContentText id="alert-dialog-slide-description">
-            {cookie["name"]}
+            {user?.name}
           </DialogContentText>
           <Button variant="contained" color="primary" onClick={insertEvent}>
             {"저장"}
