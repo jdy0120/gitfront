@@ -45,8 +45,9 @@ export interface EventInfo {
 }
 
 export interface UserInfo {
-  loginToken: string;
-  email: string;
-  name: string;
-  color: string;
+  loginToken?: string;
+  email?: string;
+  name?: string;
+  color?: string;
+  choiceEvent?: number|undefined;
 }

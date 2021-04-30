@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 
 import Button from "@material-ui/core/Button";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -46,10 +46,12 @@ export const EventCRUD = ({
 }: Props) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [time,setTime] = useState('');
+  console.log(time)
   // const [cookie] = useCookies();
 
   const {
-    state: { user },
+    state: { user }, setUser
   } = useAppContext();
 
   const insertEvent = async () => {
@@ -68,13 +70,16 @@ export const EventCRUD = ({
     };
     try {
       const response = await axios.post(
-        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
+        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
         requestOption
       );
       console.log(JSON.stringify(response));
     } catch (err) {
       console.log(err);
     }
+
+    setTitle('');
+    setContent('');
     setEventModal(false);
     CURDFlag ? setCURDFlag(false) : setCURDFlag(true);
   };
@@ -93,7 +98,7 @@ export const EventCRUD = ({
       };
       try {
         const response = await axios.post(
-          "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
+          "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
           requestOption
         );
         console.log(JSON.stringify(response));
@@ -101,12 +106,46 @@ export const EventCRUD = ({
         console.log(err);
       }
       setEventModal(false);
+      if (user?.choiceEvent === clickedEvent?.idx) {
+        setUser({
+          ...user,
+          choiceEvent: -1
+        })
+      }
       CURDFlag ? setCURDFlag(false) : setCURDFlag(true);
     } else {
       setEventModal(false);
       alert("남의 것을 삭제할 수 없습니다.");
     }
   };
+
+  const choiceEvent = async () => {
+    const requestOption = {
+      headers: {
+        "Context-Type": "application/json",
+        loginToken: user?.loginToken,
+      },
+      body: {
+        division: "choiceEvent",
+        idx: clickedEvent?.idx,
+        email: user?.email
+      },
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
+        requestOption
+      );
+      console.log(JSON.stringify(response));
+      setUser({
+        ...user,
+        choiceEvent: clickedEvent?.idx,
+      })
+    } catch (err) {
+      console.log(err);
+    }
+    setEventModal(false);
+  }
 
   return (
     <DialogContent style={{ textAlign: "center" }}>
@@ -131,8 +170,8 @@ export const EventCRUD = ({
             {clickedEvent.name}
           </DialogContentText>
           <hr />
-          <Button variant="contained" color="primary">
-            {"수정"}
+          <Button variant="contained" color="primary" onClick={choiceEvent}>
+            {"D-day"}
           </Button>
           <Button variant="contained" color="primary" onClick={deleteEvent}>
             {"삭제"}
@@ -151,6 +190,22 @@ export const EventCRUD = ({
           <DialogContentText id="alert-dialog-slide-description">
             {clickedDate}
           </DialogContentText>
+          <TextField
+            id="time"
+            label="Alarm clock"
+            type="time"
+            defaultValue="07:30"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            inputProps={{
+              step: 300, // 5 min
+            }}
+            onChange={(e) => {
+              setTime(e.target.value)
+            }}
+          />
+          <hr/>
           <TextField
             multiline
             label="내용"
