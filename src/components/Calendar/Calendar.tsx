@@ -54,7 +54,6 @@ const Calendar = ({ history }: RouteComponentProps) => {
   const [clickedEvent, setClickedEvent] = useState<EventInfo | undefined>();
   const [clickedDate, setClickedDate] = useState<string>();
   const [CURDFlag, setCURDFlag] = useState<boolean>(false);
-  const [Dday, setDday] = useState<number|undefined>();
 
   const {
     state: { user },
@@ -73,7 +72,7 @@ const Calendar = ({ history }: RouteComponentProps) => {
   const getEvents = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
+        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
         requestOption
       );
       setEvents(
@@ -135,6 +134,7 @@ const Calendar = ({ history }: RouteComponentProps) => {
   //   if (Dday > 0) return 'Dday ' + Math.floor(Dday).toString()
   //   return Math.floor(Dday/3600000).toString() + '시' + Math.floor(Dday/60000).toString() + '분' + Math.floor(Dday/1000).toString() + '초'
   // }
+  
 
   useEffect(() => {
     getEvents();
@@ -142,7 +142,7 @@ const Calendar = ({ history }: RouteComponentProps) => {
 
   return (
     <>
-      <PrintDday events={events} ref={DdayRef}/>
+      <PrintDday events={events}/>
       
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}

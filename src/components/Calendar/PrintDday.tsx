@@ -8,7 +8,7 @@ const DdayFormat = (Dday:number):string => {
     const hour = Math.floor(Dday/3600000);
     const min = Math.floor((Dday % 3600000) / 60000);
     const sec = Math.floor((Dday % 60000)/1000);
-    return '[오늘] : ' + hour + '시간' + min + '분' + sec + '초' 
+    return ' : ' + hour + '시간' + min + '분' + sec + '초' 
   }
   return '[D-day] : ' + (Math.floor(Dday/oneDay)).toString();
 }
@@ -42,12 +42,12 @@ interface Props {
   events: EventInfo[]|undefined
 }
 
-const PrintDday = forwardRef((props:Props, ref) => {
+const PrintDday = (props:Props) => {
   const [Dday, setDday] = useState<number|undefined>();
 
   const { state: { user } } = useAppContext();
 
-  const getDday = async (events: EventInfo[]): Promise<void> => {
+  const getDday = (events: EventInfo[]|undefined): void => {
     if (events === undefined) {
       setDday(undefined);
       return
@@ -75,23 +75,23 @@ const PrintDday = forwardRef((props:Props, ref) => {
     setDday(leftDay)
     return
   }
-  console.log(user?.choiceEvent);
-  const setTime = setInterval(getDday, 1000);
-  useImperativeHandle(ref, () => ({
-    startSetTime() {
-      setInterval(getDday, 1000);
-    }
-  }));
+
+  useEffect(() => {
+    const setTime = setInterval(() => {
+      getDday(props.events)
+    },1000)
+    return () => clearInterval(setTime)
+  },[props.events,user?.choiceEvent])
 
   return (
   <>
     {Dday !== undefined && Dday > 0 ?
-      <p>{'가장빠른 일정 '}{DdayFormat(Dday)}</p>
+      <p>{'선택한 일정 '}{DdayFormat(Dday)}</p>
       :
-      <p>{'남은 일정이 없습니다.'}</p>
+      <p>{'선택한 일정이 없습니다.'}</p>
     }
   </>
   );
-});
+};
 
 export default PrintDday;

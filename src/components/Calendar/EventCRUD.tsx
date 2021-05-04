@@ -46,8 +46,7 @@ export const EventCRUD = ({
 }: Props) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [time,setTime] = useState('');
-  console.log(time)
+  const [time,setTime] = useState('07:30');
   // const [cookie] = useCookies();
 
   const {
@@ -65,12 +64,12 @@ export const EventCRUD = ({
         title: title,
         content: content,
         email: user?.email,
-        date: clickedDate,
+        date: clickedDate + ' ' + time + ':00',
       },
     };
     try {
       const response = await axios.post(
-        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
+        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
         requestOption
       );
       console.log(JSON.stringify(response));
@@ -80,6 +79,7 @@ export const EventCRUD = ({
 
     setTitle('');
     setContent('');
+    setTime('07:30');
     setEventModal(false);
     CURDFlag ? setCURDFlag(false) : setCURDFlag(true);
   };
@@ -98,7 +98,7 @@ export const EventCRUD = ({
       };
       try {
         const response = await axios.post(
-          "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
+          "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
           requestOption
         );
         console.log(JSON.stringify(response));
@@ -133,7 +133,7 @@ export const EventCRUD = ({
     };
     try {
       const response = await axios.post(
-        "http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar",
+        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
         requestOption
       );
       console.log(JSON.stringify(response));
@@ -192,7 +192,7 @@ export const EventCRUD = ({
           </DialogContentText>
           <TextField
             id="time"
-            label="Alarm clock"
+            label="시간"
             type="time"
             defaultValue="07:30"
             InputLabelProps={{

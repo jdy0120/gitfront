@@ -102,11 +102,11 @@ function App() {
           open={Boolean(openMenu)}
           onClose={menuClose}
         >
-          <MenuItem onClick={menuClose}>
+          {/* <MenuItem onClick={menuClose}>
             <Link style={linkStyle} to="/gitfront/nowtime">
               {"현재시간을 확인하세요"}
             </Link>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem onClick={menuClose}>
             <Link style={linkStyle} to="/gitfront/profile">
               {"친구들의 정보를 확인하세요"}
@@ -130,7 +130,7 @@ function App() {
         </Menu>
         <hr />
         <Switch>
-          <Route path="/gitfront/nowtime" exact component={NowTime} />
+          {/* <Route path="/gitfront/nowtime" exact component={NowTime} /> */}
           <Route path="/gitfront/profile" exact component={SearchFriend} />
           <Route path="/gitfront/showholiday" exact component={GetHoliday} />
           <Route path="/gitfront/showWeather" exact component={GetWeather} />
