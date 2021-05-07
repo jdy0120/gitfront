@@ -2,18 +2,15 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import { Button, Modal } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 
+import Abandonment from './components/Abandonment/Abandonment';
 import Calendar from "./components/Calendar/Calendar";
 import GetHoliday from "./components/GetHoliday";
 import GetWeather from "./components/GetWeather";
 import Login from "./components/Login/Login";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import NowTime from "./components/NowTime";
 import SearchFriend from "./components/Friends/SearchFriend";
-// import { useCookies } from "react-cookie";
 import { useAppContext } from "./_providers/AppProviders";
-// import jwt from "jsonwebtoken";
-// import { jwtObj } from "./_config/jwt-config";
 
 /**
  * material ui의 modal을 사용할 경우 ref오류가 생기는데 Bar를 생성해주면 해결
@@ -31,7 +28,6 @@ const linkStyle = {
 };
 
 function App() {
-  // const [cookie, setCookie, removeCookie] = useCookies();
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openMenu, setOpenMenu] = useState<null | HTMLElement>(null);
 
@@ -49,8 +45,6 @@ function App() {
   };
 
   const logout = () => {
-    // removeCookie("name", { path: "/" });
-    // removeCookie("loginToken", { path: "/" });
     resetUser();
   };
 
@@ -102,11 +96,6 @@ function App() {
           open={Boolean(openMenu)}
           onClose={menuClose}
         >
-          {/* <MenuItem onClick={menuClose}>
-            <Link style={linkStyle} to="/gitfront/nowtime">
-              {"현재시간을 확인하세요"}
-            </Link>
-          </MenuItem> */}
           <MenuItem onClick={menuClose}>
             <Link style={linkStyle} to="/gitfront/profile">
               {"친구들의 정보를 확인하세요"}
@@ -127,6 +116,11 @@ function App() {
               {"캘린더"}
             </Link>
           </MenuItem>
+          <MenuItem onClick={menuClose}>
+            <Link style={linkStyle} to="/gitfront/abandonment">
+              {'유기동물 찾기'}
+            </Link>
+          </MenuItem>
         </Menu>
         <hr />
         <Switch>
@@ -136,6 +130,7 @@ function App() {
           <Route path="/gitfront/showWeather" exact component={GetWeather} />
           <Route path="/gitfront/calendar" exact component={Calendar} />
           <Route path="/gitfront/login" exact component={Login} />
+          <Route path='/gitfront/abandonment' exact component={Abandonment} />
         </Switch>
       </BrowserRouter>
     </div>
