@@ -51,7 +51,8 @@ const GetHoliday = () => {
     };
 
     const response = await axios.post(
-      "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas",
+      // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas",
+      `http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas`,
       requestOption
     );
     const data = await response.data.holidayList.item;
@@ -66,6 +67,9 @@ const GetHoliday = () => {
   useEffect(() => {
     fetchHoliday();
     return () => {
+      <div>
+        <p>{'doyeon'}</p>
+      </div>
     };
   }, []);
 

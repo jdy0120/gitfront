@@ -72,7 +72,8 @@ const Calendar = ({ history }: RouteComponentProps) => {
   const getEvents = async () => {
     try {
       const response = await axios.post(
-        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
+        // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
+        `http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar`,
         requestOption
       );
       setEvents(

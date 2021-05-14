@@ -15,7 +15,8 @@ const SearchFriend = () => {
 
   const getFriendList = async (): Promise<any> => {
     const response = await fetch(
-      `https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Friends`
+      // `https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Friends`
+      `http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Friends`,
     );
     const myFriendList = await response.json();
 

@@ -60,7 +60,8 @@ const Login = ({ setOpenLoginModal }: Props) => {
   const getToken = async () => {
     try {
       const response = await axios.post(
-        "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/login",
+        // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/login",
+        `http://localhost:5000/vaulted-bazaar-304910/us-central1/authFunction/auth/login`,
         requestOption,
         { withCredentials: true }
       );
