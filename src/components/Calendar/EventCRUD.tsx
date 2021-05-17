@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState, useEffect } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -93,7 +93,7 @@ export const EventCRUD = ({
     if (user?.email === clickedEvent?.email) {
       const deleteEventRequestOption = {
         headers: {
-          "Context-Type": "application/json",
+          ...requestOption.headers,
           loginToken: user?.loginToken,
         },
         body: {
@@ -128,7 +128,7 @@ export const EventCRUD = ({
   const choiceEvent = async () => {
     const choiceEventRequestOption = {
       headers: {
-        "Context-Type": "application/json",
+        ...requestOption.headers,
         loginToken: user?.loginToken,
       },
       body: {
