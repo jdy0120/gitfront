@@ -19,6 +19,12 @@ interface Props {
   setCURDFlag: Dispatch<SetStateAction<boolean>>;
 }
 
+const requestOption = {
+  headers: {
+    "Context-Type": "application/json",
+  },
+};
+
 const formatMoment = (datestring: string): any => {
   const weeks = [
     "일요일",
@@ -54,24 +60,22 @@ export const EventCRUD = ({
   } = useAppContext();
 
   const insertEvent = async () => {
-    const requestOption = {
-      headers: {
-        "Context-Type": "application/json",
-        loginToken: user?.loginToken,
-      },
+    const insertEventRequsetOption = {
+      ...requestOption,
       body: {
         division: "insertEvent",
         title: title,
         content: content,
         email: user?.email,
         date: clickedDate + ' ' + time + ':00',
-      },
-    };
+      }
+    }
+
     try {
       const response = await axios.post(
         // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
         `http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar`,
-        requestOption
+        insertEventRequsetOption
       );
       console.log(JSON.stringify(response));
     } catch (err) {
@@ -87,7 +91,7 @@ export const EventCRUD = ({
 
   const deleteEvent = async () => {
     if (user?.email === clickedEvent?.email) {
-      const requestOption = {
+      const deleteEventRequestOption = {
         headers: {
           "Context-Type": "application/json",
           loginToken: user?.loginToken,
@@ -96,12 +100,12 @@ export const EventCRUD = ({
           division: "deleteEvent",
           idx: clickedEvent?.idx,
         },
-      };
+      }
       try {
         const response = await axios.post(
           // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
           `http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar`,
-          requestOption
+          deleteEventRequestOption
         );
         console.log(JSON.stringify(response));
       } catch (err) {
@@ -122,7 +126,7 @@ export const EventCRUD = ({
   };
 
   const choiceEvent = async () => {
-    const requestOption = {
+    const choiceEventRequestOption = {
       headers: {
         "Context-Type": "application/json",
         loginToken: user?.loginToken,
@@ -132,12 +136,13 @@ export const EventCRUD = ({
         idx: clickedEvent?.idx,
         email: user?.email
       },
-    };
+    }
+
     try {
       const response = await axios.post(
         // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/getDatas/Calendar",
         `http://localhost:5000/vaulted-bazaar-304910/us-central1/getDatas/Calendar`,
-        requestOption
+        choiceEventRequestOption
       );
       console.log(JSON.stringify(response));
       setUser({
