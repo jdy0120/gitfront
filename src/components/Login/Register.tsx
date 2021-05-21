@@ -7,6 +7,12 @@ import jwt from "jsonwebtoken";
 import { jwtObj } from "../../_config/jwt-config";
 import { useAppContext } from "../../_providers/AppProviders";
 
+const requestOption = {
+  headers: {
+    "Context-Type": "application/json",
+  },
+}
+
 const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
@@ -52,28 +58,26 @@ const Register = ({ setOpenLoginModal }: Props) => {
 
   const { setUser } = useAppContext();
 
-  const requestOption = {
-    headers: {
-      "Context-Type": "application/json",
-    },
+  const registerRequestOption = {
+    ...requestOption,
     body: {
       name: name,
       email: email,
       pw: pw,
     },
-  };
+  }
   const getRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await axios.post(
         // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/register",
         `http://localhost:5000/vaulted-bazaar-304910/us-central1/authFunction/auth/register`,
-        requestOption
+        registerRequestOption
       );
       const response = await axios.post(
         // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/login",
         `http://localhost:5000/vaulted-bazaar-304910/us-central1/authFunction/auth/login`,
-        requestOption,
+        registerRequestOption,
         { withCredentials: true }
       );
       setOpenLoginModal(false);

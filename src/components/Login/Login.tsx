@@ -10,6 +10,12 @@ interface Props {
   setOpenLoginModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const requestOption = {
+  header: {
+    "Context-Type": "application/json",
+  },
+}
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -47,22 +53,20 @@ const Login = ({ setOpenLoginModal }: Props) => {
 
   const classes = useStyles();
 
-  const requestOption = {
-    header: {
-      "Context-Type": "application/json",
-    },
+  const loginRequestOption = {
+    ...requestOption,
     body: {
       email: email,
       pw: pw,
     },
-  };
+  }
 
   const getToken = async () => {
     try {
       const response = await axios.post(
         // "https://us-central1-vaulted-bazaar-304910.cloudfunctions.net/authFunction/auth/login",
         `http://localhost:5000/vaulted-bazaar-304910/us-central1/authFunction/auth/login`,
-        requestOption,
+        loginRequestOption,
         { withCredentials: true }
       );
       setOpenLoginModal(false);
@@ -75,6 +79,7 @@ const Login = ({ setOpenLoginModal }: Props) => {
       console.log("logged in");
     } catch (err) {
       const response = err.response;
+      console.log(response);
       switch (response.data) {
         case "Not valid email": {
           alert("존재하지 않는 이메일 입니다.");
