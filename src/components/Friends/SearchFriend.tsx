@@ -50,15 +50,15 @@ const SearchFriend = () => {
       <div>
         <input type="text" id="name" placeholder="이름을 입력해주세요." />
         <button type="submit" onClick={arraySearch}>
-          찾기!
+          {'찾기!'}
         </button>
         {filteredFriend.idx === 0 ? (
-          <h1>이름을 입력해주세요.</h1>
+          <h1>{'이름을 입력해주세요.'}</h1>
         ) : (
           <div>
-            <p>이름 : {filteredFriend.name}</p>
-            <p>나이 : {filteredFriend.age}</p>
-            <p>별명 : {filteredFriend.nickname}</p>
+            <p>{'이름 : '}{filteredFriend.name}</p>
+            <p>{'나이 : '}{filteredFriend.age}</p>
+            <p>{'별명 : '}{filteredFriend.nickname}</p>
             <ChangeOrAddFriend
               friend={filteredFriend}
               canChange={canChange}

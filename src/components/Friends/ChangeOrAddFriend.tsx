@@ -53,16 +53,16 @@ const ChangeOrAddFriend = ({ friend, canChange, setCanChange }: Props) => {
   return (
     <div>
       {canChange === false ? (
-        <button onClick={changeTrue}>별명을 바꾸거나 추가하고 싶어요.</button>
+        <button onClick={changeTrue}>{'별명을 바꾸거나 추가하고 싶어요.'}</button>
       ) : (
         <>
-          <p>이름 : </p>
+          <p>{'이름 : '}</p>
           <input type="text" id="name" defaultValue={friend.name} />
-          <p>나이 : </p>
+          <p>{'나이 : '}</p>
           <input type="number" id="age" />
-          <p>별명 : </p>
+          <p>{'별명 : '}</p>
           <input type="text" id="nickname" defaultValue={friend.nickname} />
-          <button onClick={changeFalse}>확인!</button>
+          <button onClick={changeFalse}>{'확인!'}</button>
         </>
       )}
     </div>

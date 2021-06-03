@@ -85,9 +85,9 @@ const GetHoliday = () => {
             placeholder={"연도를 입력해주세요."}
             onChange={changeYear}
           />
-          <button onClick={runFetch}>찾기!</button>
+          <button onClick={runFetch}>{'찾기!'}</button>
           {typeof holidayList == "undefined" ? (
-            <p>휴일을 찾을 수 없습니다.</p>
+            <p>{'휴일을 찾을 수 없습니다.'}</p>
           ) : (
             <ul style={{ listStyle: "none" }}>
               {holidayList.map((holiday, index) => (

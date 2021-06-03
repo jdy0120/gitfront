@@ -31,15 +31,15 @@ const NowTime = () => {
 
   return (
     <div>
-      <p>현재 시간은</p>
+      <p>{'현재 시간은'}</p>
       <p>
-        {nowTime.hour}시 {nowTime.minute}분 {nowTime.seconds}초 입니다.
+        {nowTime.hour}{'시 '}{nowTime.minute}{'분 '}{nowTime.seconds}{'초 입니다.'}
       </p>
       {nowTime.hour + ":" + nowTime.minute + ":" + nowTime.seconds <
       "19:30:00" ? (
-        <p>하지만 도연이의 퇴근 시간은 19시 30분 0초 입니다.</p>
+        <p>{'하지만 도연이의 퇴근 시간은 19시 30분 0초 입니다.'}</p>
       ) : (
-        <p>도연이는 19시 30분에 퇴근했습니다.</p>
+        <p>{'도연이는 19시 30분에 퇴근했습니다.'}</p>
       )}
     </div>
   );

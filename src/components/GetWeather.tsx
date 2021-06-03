@@ -56,14 +56,14 @@ const GetWeather = () => {
   return (
     <div>
       <input type="text" onChange={changeLocation} />
-      <button onClick={clickButton}>찾기</button>
+      <button onClick={clickButton}>{'찾기'}</button>
       {!weatherData ? (
-        <div>없는 지역입니다.</div>
+        <div>{'없는 지역입니다.'}</div>
       ) : (
         <>
-          <p>지역 : {weatherData.country_name}</p>
-          <p>온도 : {Math.floor(weatherData.temp - 273.15)}</p>
-          <p>체감 온도 : {Math.floor(weatherData.feels_like - 273.15)}</p>
+          <p>{'지역 : '}{weatherData.country_name}</p>
+          <p>{'온도 : '}{Math.floor(weatherData.temp - 273.15)}</p>
+          <p>{'체감 온도 : '}{Math.floor(weatherData.feels_like - 273.15)}</p>
         </>
       )}
     </div>
