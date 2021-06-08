@@ -105,7 +105,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
     <div style={modalStyle} className={classes.paper}>
       <Title>{"회원가입"}</Title>
       <form action="/" onSubmit={getRegister}>
-        name :{" "}
+        {`name :`}{" "}
         <input
           type="text"
           placeholder="이름"
@@ -115,7 +115,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
           required
         />
         <br />
-        email :{" "}
+        {`email :`}{" "}
         <input
           type="email"
           placeholder="이메일"
@@ -125,7 +125,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
           required
         />
         <br />
-        password :{" "}
+        {`password :`}{" "}
         <input
           type="text"
           placeholder="비밀번호"
@@ -135,7 +135,7 @@ const Register = ({ setOpenLoginModal }: Props) => {
           required
         />
         <br />
-        <button type="submit">회원가입</button>
+        <button type="submit">{`회원가입`}</button>
       </form>
     </div>
   );

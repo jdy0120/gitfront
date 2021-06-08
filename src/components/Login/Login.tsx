@@ -101,7 +101,7 @@ const Login = ({ setOpenLoginModal }: Props) => {
         <Register setOpenLoginModal={setOpenLoginModal} />
       ) : (
         <div style={modalStyle} className={classes.paper}>
-          email :{" "}
+          {`email :`}{" "}
           <input
             type="text"
             placeholder="이메일"
@@ -110,7 +110,7 @@ const Login = ({ setOpenLoginModal }: Props) => {
             }}
           />
           <br />
-          password :{" "}
+          {`password :`}{" "}
           <input
             type="password"
             placeholder="패스워드"
@@ -119,13 +119,13 @@ const Login = ({ setOpenLoginModal }: Props) => {
             }}
           />
           <br />
-          <button onClick={getToken}>로그인</button>
+          <button onClick={getToken}>{`로그인`}</button>
           <button
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               setRegister(true);
             }}
           >
-            회원가입
+            {`회원가입`}
           </button>
         </div>
       )}

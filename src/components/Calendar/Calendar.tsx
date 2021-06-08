@@ -1,6 +1,6 @@
 import { EventInfo } from "../../types/types";
 import FullCalendar, { EventClickArg } from "@fullcalendar/react";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import Dialog from "@material-ui/core/Dialog";
 import { RouteComponentProps } from "react-router";

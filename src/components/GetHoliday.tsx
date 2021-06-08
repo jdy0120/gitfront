@@ -30,6 +30,7 @@ const formatMoment = (datenumber: number): any => {
   console.log();
   return newDate + ", " + weeks[date.getDay()];
 };
+
 const GetHoliday = () => {
   const [loading, setLoading] = useState(false);
   const [year, setYear] = useState("2021");
